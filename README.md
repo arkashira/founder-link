@@ -1,2 +1,14 @@
-# Founder Link Project
-This project provides a simple implementation of the Founder Link epic, allowing users to create an account and start building their MVP immediately.
+# founder-link MVP Builder Core
+
+A tiny, pure‑Python library that models a drag‑and‑drop MVP builder.
+
+## Features
+
+- Add components (e.g., "button", "text") at a 2‑D position.
+- Move existing components.
+- Render a preview representation (list of component dicts).
+- Save the design to a JSON file and load it back.
+
+The implementation uses only the Python standard library and is fully covered by unit tests.
+
+## Running the tests
