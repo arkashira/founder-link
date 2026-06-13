@@ -1,14 +1,16 @@
-# founder-link MVP Builder Core
+# Founder Link
 
-A tiny, pure‑Python library that models a drag‑and‑drop MVP builder.
+A simple Python project for hosting and deploying MVPs.
 
-## Features
+## Usage
 
-- Add components (e.g., "button", "text") at a 2‑D position.
-- Move existing components.
-- Render a preview representation (list of component dicts).
-- Save the design to a JSON file and load it back.
+1. Create an instance of `FounderLink` with the name of your MVP.
+2. Create an instance of `MVP` with the name, URL, and updated status of your MVP.
+3. Host your MVP using the `host_mvp` method.
+4. Deploy your MVP using the `deploy_mvp` method.
+5. Update your MVP using the `update_mvp` method.
+6. Get the URL of your MVP using the `get_mvp_url` method.
 
-The implementation uses only the Python standard library and is fully covered by unit tests.
+## Testing
 
-## Running the tests
+Run the tests using `python -m pytest`.

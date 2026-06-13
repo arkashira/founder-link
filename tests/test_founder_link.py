@@ -1,41 +1,26 @@
-from founder_link import FounderLink
-import pytest
-from datetime import datetime, timedelta
+from founder_link import FounderLink, MVP
 
-def test_create_account():
-    founder_link = FounderLink()
-    username = "test_user"
-    email = "test@example.com"
-    password = "test_password"
-    assert founder_link.create_account(username, email, password)
-    assert not founder_link.create_account(username, email, password)
+def test_host_mvp():
+    founder_link = FounderLink("test_mvp")
+    mvp = MVP("test_mvp", "https://test-mvp.com", False)
+    founder_link.host_mvp(mvp)
+    assert founder_link.get_mvp_url("test_mvp") == "https://test-mvp.com"
 
-def test_redirect_to_mvp_builder():
-    founder_link = FounderLink()
-    username = "test_user"
-    email = "test@example.com"
-    password = "test_password"
-    founder_link.create_account(username, email, password)
-    mvp_template = founder_link.redirect_to_mvp_builder(username)
-    assert mvp_template
-    assert mvp_template["name"] == "Basic MVP"
+def test_deploy_mvp():
+    founder_link = FounderLink("test_mvp")
+    mvp = MVP("test_mvp", "https://test-mvp.com", False)
+    founder_link.host_mvp(mvp)
+    assert founder_link.deploy_mvp("test_mvp") == "https://test-mvp.com"
 
-def test_validate_idea():
-    founder_link = FounderLink()
-    username = "test_user"
-    email = "test@example.com"
-    password = "test_password"
-    founder_link.create_account(username, email, password)
-    idea = "Test idea"
-    assert founder_link.validate_idea(username, idea)
+def test_update_mvp():
+    founder_link = FounderLink("test_mvp")
+    mvp = MVP("test_mvp", "https://test-mvp.com", False)
+    founder_link.host_mvp(mvp)
+    assert founder_link.update_mvp("test_mvp") == "https://test-mvp.com"
+    assert founder_link.mvps["test_mvp"].updated
 
-def test_account_creation_time():
-    founder_link = FounderLink()
-    username = "test_user"
-    email = "test@example.com"
-    password = "test_password"
-    start_time = datetime.now()
-    founder_link.create_account(username, email, password)
-    end_time = datetime.now()
-    account_creation_time = end_time - start_time
-    assert account_creation_time < timedelta(minutes=2)
+def test_get_mvp_url():
+    founder_link = FounderLink("test_mvp")
+    mvp = MVP("test_mvp", "https://test-mvp.com", False)
+    founder_link.host_mvp(mvp)
+    assert founder_link.get_mvp_url("test_mvp") == "https://test-mvp.com"

@@ -1,41 +1,37 @@
 import json
+import os
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from urllib.parse import urlparse
 
 @dataclass
-class User:
-    username: str
-    email: str
-    password: str
+class MVP:
+    name: str
+    url: str
+    updated: bool
 
 class FounderLink:
-    def __init__(self):
-        self.users = {}
-        self.mvp_templates = {
-            "basic": {
-                "name": "Basic MVP",
-                "description": "A basic MVP template"
-            }
-        }
+    def __init__(self, mvp_name):
+        self.mvp_name = mvp_name
+        self.mvps = {}
 
-    def create_account(self, username, email, password):
-        if username in self.users:
-            return False
-        self.users[username] = User(username, email, password)
-        return True
+    def host_mvp(self, mvp):
+        self.mvps[mvp.name] = mvp
 
-    def get_mvp_template(self, template_name):
-        return self.mvp_templates.get(template_name)
+    def deploy_mvp(self, mvp_name):
+        if mvp_name in self.mvps:
+            return self.mvps[mvp_name].url
+        else:
+            return None
 
-    def redirect_to_mvp_builder(self, username):
-        user = self.users.get(username)
-        if user:
-            return self.get_mvp_template("basic")
-        return None
+    def update_mvp(self, mvp_name):
+        if mvp_name in self.mvps:
+            self.mvps[mvp_name].updated = True
+            return self.mvps[mvp_name].url
+        else:
+            return None
 
-    def validate_idea(self, username, idea):
-        user = self.users.get(username)
-        if user:
-            # Simulate idea validation
-            return True
-        return False
+    def get_mvp_url(self, mvp_name):
+        if mvp_name in self.mvps:
+            return self.mvps[mvp_name].url
+        else:
+            return None
